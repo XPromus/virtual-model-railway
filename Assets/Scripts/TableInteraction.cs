@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -13,6 +15,17 @@ public class TableInteraction : MonoBehaviour
         interactable.selectEntered.AddListener(Selected);
         interactable.selectExited.AddListener(Deselected);
     }
+
+    // private void Update()
+    // {
+    //     var inputDevices = new List<UnityEngine.XR.InputDevice>();
+    //     UnityEngine.XR.InputDevices.GetDevices(inputDevices);
+    //
+    //     foreach (var device in inputDevices)
+    //     {
+    //         Debug.Log(string.Format("Device found with name '{0}' and role '{1}'", device.name, device.role.ToString()));
+    //     }
+    // }
 
     private void FixedUpdate() {
         if (interactorTransform != null) {
