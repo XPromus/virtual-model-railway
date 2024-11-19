@@ -28,14 +28,17 @@ namespace Train.Scripts
         }
         
         [SerializeField] private float rotationSpeed = 1f;
+        public float RotationSpeed
+        {
+            get => rotationSpeed;
+            set => rotationSpeed = value;
+        }
         
         private float _currentDistance;
 
         private void Start()
         {
-            var firstKnot = TargetTrack.Spline.Knots.ToArray()[0];
-            transform.rotation = firstKnot.Rotation;
-            transform.position = TargetTrack.transform.TransformPoint(firstKnot.Position);
+            TeleportTrainToFirstKnot();
         }
 
         private void Update()
@@ -52,7 +55,7 @@ namespace Train.Scripts
             if (targetDirection != Vector3.zero)
             {
                 var targetRotation = Quaternion.LookRotation(targetDirection, transform.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
             }
 
             if (_currentDistance >= 1f)
@@ -65,6 +68,19 @@ namespace Train.Scripts
                 var movement = currentTrainSpeed * Time.deltaTime / splineLength;
                 _currentDistance += movement;
             }
+        }
+
+        public void TeleportTrainToFirstKnot()
+        {
+            if (!TargetTrack)
+            {
+                Debug.LogError("Target track hasn't been set.");
+                return;
+            }
+            
+            var firstKnot = TargetTrack.Spline.Knots.ToArray()[0];
+            transform.rotation = firstKnot.Rotation;
+            transform.position = TargetTrack.transform.TransformPoint(firstKnot.Position);
         }
     }
 }
