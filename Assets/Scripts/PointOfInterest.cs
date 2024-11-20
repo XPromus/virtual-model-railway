@@ -17,6 +17,7 @@ public class PointOfInterest : MonoBehaviour
 
     private bool _hovering = false;
     private bool _entered = false;
+    private bool _rendering = true;
     private Vector3 _lastPosition;
 
     private readonly float _alphaHovering = 0.7f;
@@ -43,6 +44,18 @@ public class PointOfInterest : MonoBehaviour
             Debug.Log("Setting up devices");
             SetUpInputDevices();
             return;
+        }
+
+        if (_poiMain.GetInPointOfInterest() && _rendering)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+            _rendering = false;
+        }
+
+        if (!_poiMain.GetInPointOfInterest() && !_rendering)
+        {
+            GetComponent<MeshRenderer>().enabled = true;
+            _rendering = true;
         }
         
         bool inPoi = _poiMain.GetInPointOfInterest();
@@ -110,17 +123,20 @@ public class PointOfInterest : MonoBehaviour
 
     private void HoverEnter(HoverEnterEventArgs args)
     {
-        SetAlpha(_alphaHovering);
         if (!(_entered || _poiMain.GetInPointOfInterest()))
         {
+            SetAlpha(_alphaHovering);
             _hovering = true;
         }
     }
 
     private void HoverExit(HoverExitEventArgs args)
     {
-        SetAlpha(_alphaNotHovering);
-        _hovering = false;
+        if (!(_entered || _poiMain.GetInPointOfInterest()))
+        {
+            SetAlpha(_alphaNotHovering);
+            _hovering = false;
+        }
     }
 
     private void SetAlpha(float alpha)
@@ -135,7 +151,6 @@ public class PointOfInterest : MonoBehaviour
 
     private void MoveIn()
     {
-        SetAlpha(0f);
         _lastPosition = _xrOrigin.transform.position;
         _xrOrigin.transform.position = transform.position;
         _xrOrigin.transform.localScale = new Vector3(_scale, _scale, _scale);
@@ -147,4 +162,6 @@ public class PointOfInterest : MonoBehaviour
         _xrOrigin.transform.position = _lastPosition;
         _xrOrigin.transform.localScale = new Vector3(1, 1, 1);
     }
+    
+    
 }
