@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UserInterface/sample.uss?fileID=7433441132597879392&amp;guid=acbf3d48b00dfae49bc0a02f6f6d25c1&amp;type=3#sample" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.68);">
+        <ui:Label tabindex="-1" text="Sample Title" parse-escape-sequences="true" display-tooltip-when-elided="true" style="background-color: rgba(255, 255, 255, 0); color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold;" />
+        <ui:Button text="Test" parse-escape-sequences="true" display-tooltip-when-elided="true" name="testButton" />
+    </ui:VisualElement>
+</ui:UXML>
