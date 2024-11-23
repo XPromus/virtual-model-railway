@@ -24,6 +24,9 @@ namespace Train.Editor
 
             var rotationSpeed = serializedObject.FindProperty("rotationSpeed");
             EditorGUILayout.PropertyField(rotationSpeed);
+
+            var lockLocalYRotation = serializedObject.FindProperty("lockLocalYRotation");
+            EditorGUILayout.PropertyField(lockLocalYRotation);
             
             EditorGUILayout.Space();
 

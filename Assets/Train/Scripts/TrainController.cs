@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -33,6 +34,13 @@ namespace Train.Scripts
             get => rotationSpeed;
             set => rotationSpeed = value;
         }
+
+        [SerializeField] private bool lockLocalYRotation = false;
+        public bool LockLocalYRotation
+        {
+            get => lockLocalYRotation;
+            set => lockLocalYRotation = value;
+        }
         
         private float _currentDistance;
 
@@ -55,7 +63,15 @@ namespace Train.Scripts
             if (targetDirection != Vector3.zero)
             {
                 var targetRotation = Quaternion.LookRotation(targetDirection, transform.up);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+                transform.rotation = targetRotation;
+                
+                if (LockLocalYRotation)
+                {
+                    var currentRotation = transform.localRotation.eulerAngles;
+                    var newRotation = new Vector3(currentRotation.x, currentRotation.y, 0f);
+                    transform.localRotation = Quaternion.Euler(newRotation);
+                }
             }
 
             if (_currentDistance >= 1f)
