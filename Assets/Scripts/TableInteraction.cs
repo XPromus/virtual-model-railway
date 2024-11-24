@@ -12,7 +12,8 @@ public class TableInteraction : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 centerTable;
 
-    private void Start() {
+    private void Start()
+    {
         XRGrabInteractable interactable = GetComponent<XRGrabInteractable>();
         interactable.selectEntered.AddListener(Selected);
         interactable.selectExited.AddListener(Deselected);

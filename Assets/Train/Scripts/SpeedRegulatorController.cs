@@ -27,7 +27,7 @@ namespace Train.Scripts
         {
             //var newRotation = new Vector3(-90f, ClampAngle(knobTransform.rotation.y, minEulerRotation, maxEulerRotation), 0f);
             //knobTransform.rotation = Quaternion.Euler(newRotation);
-            currentSpeedRegulatorPosition = knobTransform.rotation.eulerAngles.y / maxEulerRotation;
+            currentSpeedRegulatorPosition = knobTransform.localRotation.eulerAngles.y / maxEulerRotation;
         }
 
         private float ClampAngle(float angle, float min, float max)
