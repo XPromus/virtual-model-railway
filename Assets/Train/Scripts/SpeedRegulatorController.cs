@@ -18,7 +18,7 @@ namespace Train.Scripts
             set
             {
                 _currentSpeedRegulatorPosition = Mathf.Clamp01(value);
-                Debug.Log(_currentSpeedRegulatorPosition);
+                // Debug.Log(_currentSpeedRegulatorPosition);
                 trainController.CurrentTrainSpeed = trainController.MaxTrainSpeed * _currentSpeedRegulatorPosition;
             }
         }

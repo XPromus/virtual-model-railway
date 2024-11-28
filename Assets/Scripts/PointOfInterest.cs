@@ -20,8 +20,8 @@ public class PointOfInterest : MonoBehaviour
     private bool _rendering = true;
     private Vector3 _lastPosition;
 
-    private readonly float _alphaHovering = 0.7f;
-    private readonly float _alphaNotHovering = 0.1f;
+    private readonly float _alphaHovering = 0.8f;
+    private readonly float _alphaNotHovering = 0.5f;
 
     private void Start()
     {
